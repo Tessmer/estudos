@@ -1,5 +1,7 @@
 # app-router
 
+Criado com a finalidade de estudar o básico do Vue Router.
+
 ## Project setup
 ```
 npm install
