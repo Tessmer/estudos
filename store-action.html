@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redux</title>
+    <script src="./redux.min.js"></script>
+  </head>
+  <body>
+    <script>
+      const initialState = 10;
+      /* reducer recebe dois args principais = 
+      state (estado atual);
+      action (obj que contém type e payload (caso necessário))*/
+
+      /* os tipos devem ser armazenados em constantes em letra maiúscula para evitar erros/bugs no servidor*/
+      const INCREMENTAR = "INCREMENTAR";
+      const SOMAR = "SOMAR";
+      const REDUZIR = "REDUZIR";
+
+      /* outra alternativa para evitar bugs: ACTION CREATOR,
+      que são funções que retornam o objeto da ação */
+
+      function somar(payload) {
+        return { type: SOMAR, payload };
+      }
+      function reduzir(payload) {
+        return { type: REDUZIR, payload };
+      }
+
+      function reducer(state = initialState, action) {
+        if (action.type === INCREMENTAR) {
+          return state + 1;
+        }
+        if (action.type === SOMAR) {
+          return state + action.payload;
+        }
+        if (action.type === REDUZIR) {
+          return state - action.payload;
+        }
+        return state;
+      }
+
+      const store = Redux.createStore(reducer);
+      /* getState() pega o estado atual e o quê há dentro do mesmo*/
+      let state = store.getState();
+
+      /* disparando ações */
+      store.dispatch(somar(2));
+
+      /* utilizando const */
+      store.dispatch({ type: INCREMENTAR });
+
+      /* utilizando action creator */
+      store.dispatch(reduzir(9));
+      state = store.getState();
+      console.log("state", state);
+    </script>
+  </body>
+</html>

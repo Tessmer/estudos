@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redux</title>
+    <script src="./redux.min.js"></script>
+  </head>
+  <body>
+    <div>
+      <h1>Total: <span id="total"></span></h1>
+      <button id="button">Incrementar</button>
+    </div>
+
+    <script>
+      const initialState = 10;
+
+      const INCREMENTAR = "INCREMENTAR";
+
+      function incrementar() {
+        return { type: INCREMENTAR };
+      }
+
+      function reducer(state = initialState, action) {
+        if (action.type === INCREMENTAR) {
+          return state + 1;
+        }
+        return state;
+      }
+
+      const store = Redux.createStore(reducer);
+
+      function render() {
+        const state = store.getState();
+        const total = document.getElementById("total");
+        total.innerText = state;
+      }
+
+      /* ativa valor inicial */
+      render();
+
+      /* caso queira que a func pare de ser ativada
+      quando ocorrer o dispatch, basta utilizar o unsubscribe */
+      /*
+            const unsubscribe = store.subscribe(render);
+            store.subscribe(incrementar());
+            unsubscribe()
+            */
+
+      store.subscribe(render);
+
+      const button = document.getElementById("button");
+      button.addEventListener("click", () => store.dispatch(incrementar()));
+    </script>
+  </body>
+</html>
