@@ -1,7 +1,7 @@
-import Redux from "redux";
-import counter from "./counter.js";
+import aluno from "./aluno.js";
+import aulas from "./aulas.js";
 
-const reducer = Redux.combineReducers({ counter });
+const reducer = Redux.combineReducers({ aluno, aulas });
 
 const store = Redux.createStore(
   reducer,
